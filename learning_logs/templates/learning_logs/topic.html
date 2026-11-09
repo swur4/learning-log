@@ -1,0 +1,39 @@
+
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+    <h2>{{ topic.text }}</h2>
+{% endblock page_header %}
+
+{% block content %}
+    <a href="{% url 'learning_logs:new_entry' topic.id %}"
+       class="btn btn-primary mb-4">
+        Добавить новую запись
+    </a>
+
+    {% for entry in entries %}
+        <div class="card mb-3">
+            <div class="card-header">
+                {{ entry.date_added|date:'d.m.Y H:i' }}
+
+                <a href="{% url 'learning_logs:edit_entry' entry.id %}"
+                   class="btn btn-sm btn-outline-secondary float-right">
+                    Редактировать
+                </a>
+            </div>
+
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+    {% empty %}
+        <div class="alert alert-info">
+            Для этой темы пока нет записей.
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'learning_logs:topics' %}"
+       class="btn btn-outline-secondary mt-2">
+        Вернуться к темам
+    </a>
+{% endblock content %}

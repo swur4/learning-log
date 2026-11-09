@@ -1,0 +1,26 @@
+
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+    <h2>Мои темы</h2>
+{% endblock page_header %}
+
+{% block content %}
+    <div class="list-group mb-3">
+        {% for topic in topics %}
+            <a href="{% url 'learning_logs:topic' topic.id %}"
+               class="list-group-item list-group-item-action">
+                {{ topic.text }}
+            </a>
+        {% empty %}
+            <div class="list-group-item">
+                Темы пока не добавлены.
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'learning_logs:new_topic' %}"
+       class="btn btn-primary">
+        Добавить новую тему
+    </a>
+{% endblock content %}
